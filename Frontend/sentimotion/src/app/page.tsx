@@ -20,9 +20,9 @@ import InfoIcon from '@mui/icons-material/Info';
 const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
   margin: theme.spacing(1),
   '& .MuiCardHeader-root': {
-    background: 'linear-gradient(90deg, rgba(100,194,255,1) 48%, rgba(32,43,143,1) 96%)',
+    background: '#fff',
     '& .MuiTypography-root': {
-      color: '#fff',
+      color: '#000',
     },
   },
   '& .MuiCardContent-root': {
@@ -33,53 +33,13 @@ const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
   },
 }));
 
-const StyledCardMain = styled(Card)<CardProps>(({ theme }) => ({
-  margin: theme.spacing(1),
-  position: 'relative',
-  '& .MuiCardHeader-root': {
-    background: 'linear-gradient(270deg, rgba(100,194,255,1) 48%, rgba(32,43,143,1) 96%)',
-    '& .MuiTypography-root': {
-      color: '#fff',
-    },
-  },
-  '& .MuiCardMedia-root': {
-    background: 'linear-gradient(270deg, rgba(32, 43, 143, 1) 48%, rgba(50, 59, 182, 1) 96%)',
-  },
 
-  '& .MuiCardContent-root': {
-    background: 'linear-gradient(90deg, rgba(100, 194, 255, 1) 48%, rgba(50, 59, 182, 1) 96%)',
-    '& .MuiTypography-root': {
-      color: '#fff',
-    },
-  },
-}));
-
-const StyledCardRight = styled(Card)<CardProps>(({ theme }) => ({
-  margin: theme.spacing(1),
-  position: 'relative',
-  '& .MuiCardHeader-root': {
-    background: 'linear-gradient(270deg, rgba(100,194,255,1) 48%, rgba(32,43,143,1) 96%)',
-    '& .MuiTypography-root': {
-      color: '#fff',
-    },
-  },
-  '& .MuiCardMedia-root': {
-    background: 'linear-gradient(270deg, rgba(32, 43, 143, 1) 48%, rgba(50, 59, 182, 1) 96%)',
-  },
-
-  '& .MuiCardContent-root': {
-    paddingBottom: 0,
-    marginBottom: 0,
-    paddingTop: 0,
-    marginTop: theme.spacing(1),
-  },
-}));
 
 
 
 const StyledIconButton = styled(IconButton)<IconButtonProps>(({ theme }) => ({
   '&:hover': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.common.black,
     marginLeft: theme.spacing(1),
     '& svg': {
       fontSize: 34,
@@ -88,7 +48,7 @@ const StyledIconButton = styled(IconButton)<IconButtonProps>(({ theme }) => ({
   },
   '& svg': {
     fontSize: 24,
-    color: theme.palette.common.white,
+    color: theme.palette.common.black,
   }
 }));
 
@@ -101,16 +61,16 @@ export default function Home() {
     router.push(appRoute.model)
   }
   return (
-    <main>
+    <main style={{ backgroundColor: '#f5f5f5' }}>
       {
         <>
-          <NavBar />
-          <Grid container direction="row" justifyContent={'center'}>
-            <Grid item xs={10}>
+          <NavBar  />
+          <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }}>
+            <Grid item xs={12}>
             <StyledCard>
                     <CardHeader
                       title={
-                        <Typography gutterBottom variant="h2" component="div">
+                        <Typography gutterBottom variant="h2" component="div" align='center'>
                           Welcome to SentiMotion
                         </Typography>
                       }
@@ -124,8 +84,8 @@ export default function Home() {
                   </StyledCard>
             </Grid>
             <Grid item xs={11}>
-              <Grid container direction="row" alignContent={'center'} >
-                <Grid item xs={6}>
+              <Grid container direction="row" justifyContent={'center'}>
+                <Grid item xs={6} >
                   <StyledCard>
                     <CardHeader
                       title={
@@ -153,31 +113,6 @@ export default function Home() {
                         </Grid>}
                     />
                   </StyledCard>
-                </Grid>
-                <Grid item xs={6}>
-                  <StyledCardRight>
-                    <CardHeader
-                      title={
-                        <Grid container alignItems="center">
-                          <Grid item>
-                            <AccountCircleIcon style={{ fontSize: '40px' }} />
-                          </Grid>
-                          <Grid item>
-                            <Typography gutterBottom variant="h2" component="div">
-                              Your Profile
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      }
-                      subheader={
-                        <Fragment>
-                          <Typography>
-                            Basic Info
-                          </Typography>
-                        </Fragment>}
-                    />
-                  </StyledCardRight>
-
                 </Grid>
 
                 <Grid item xs={12}>
@@ -217,7 +152,7 @@ export default function Home() {
                       </StyledCard>
                     </Grid>
                     <Grid item xs={3}>
-                      <StyledCardRight>
+                      <StyledCard>
                         <CardHeader
                           title={
                             <Typography gutterBottom component="div" align='center'>
@@ -230,7 +165,7 @@ export default function Home() {
                             2
                           </Typography>
                         </CardContent>
-                      </StyledCardRight>
+                      </StyledCard>
                     </Grid>
 
                     <Grid item xs={3}>
@@ -251,7 +186,7 @@ export default function Home() {
                     </Grid>
                     <Grid item xs={3}>
 
-                      <StyledCardRight>
+                      <StyledCard>
                         <CardHeader
                           title={
                             <Typography gutterBottom component="div" align='center'>
@@ -264,7 +199,7 @@ export default function Home() {
                           4
                           </Typography>
                         </CardContent>
-                      </StyledCardRight>
+                      </StyledCard>
                     </Grid>
                   </Grid>
                 </Grid>

@@ -9,7 +9,8 @@ import { useRouter } from "next/navigation";
 const StyledAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
-    backgroundColor: '#0086A8',
+    position: 'fixed', top: 0, width: '100%', zIndex: 100 ,
+    backgroundColor: '#000000',
     '& .MuiTypography-root, svg': {
         color: theme.palette.common.white,
     }
@@ -18,7 +19,7 @@ const StyledAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
 export default function NavBar() {
     const [t] = useTranslation(["navigation"]);
     const router = useRouter();
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+
 
     
 
@@ -40,14 +41,15 @@ export default function NavBar() {
                                 fontSize: 20,
                                 letterSpacing: '-.02rem',
                                 wordSpacing: '-.3rem',
-                                color: 'GrayText',
+                                color: 'red',
                                 textDecoration: 'none',
                                 mt: 1.6
+
                             }}
                         >
                             SentiMotion
                         </Typography>
-                        {/* <NavBreadcrumbs/> */}
+
                     </Box>
 
 

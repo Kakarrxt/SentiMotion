@@ -134,7 +134,7 @@ export default function SideNavBar() {
           <Grid item>
 
           <Typography variant="h2" marginTop={'.3rem'} >
-          Water Dashboard
+          SentiMotion
           </Typography>
           </Grid>
           <Grid item>

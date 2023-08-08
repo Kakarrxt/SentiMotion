@@ -8,12 +8,12 @@ import * as React from 'react';
 
 const StyledBox = styled(Box)<BoxProps>(({ theme }) => ({
     '& .MuiPaper-root': {
-        backgroundColor: '#a5c100',
+        backgroundColor: '#000000',
         borderRadius: 0,
         '& .MuiGrid-root': {
             margin: theme.spacing(1),
             '& .MuiTypography-root': {
-                color: "#00567D",
+                color: "#FFFFFF",
                 marginLeft: theme.spacing(1),
             }
         }
@@ -26,7 +26,7 @@ export default function Footer() {
     return (
         <StyledBox sx={{ pb: 7 }} ref={ref}>
             <CssBaseline />
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 ,zIndex:5}} elevation={3}>
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 ,zIndex:5}} elevation={1}>
                 <Grid container justifyContent="center" alignItems="center">
                  
                     <Typography variant="h5">
