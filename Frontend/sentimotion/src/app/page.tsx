@@ -97,8 +97,8 @@ export default function Home() {
 
   const router = useRouter();
 
-  const handleProjectPage = () => {
-    router.push(appRoute.project)
+  const handleModelPage = () => {
+    router.push(appRoute.model)
   }
   return (
     <main>
@@ -141,10 +141,10 @@ export default function Home() {
                         </Fragment>}
                       action={
                         <Grid container alignItems="center">
-                          <Tooltip title="Go to project">
+                          <Tooltip title="Go to Model">
                             <StyledIconButton
                               size="small"
-                              onClick={handleProjectPage}
+                              onClick={handleModelPage}
                               sx={{ color: "#fff" }}
                             >
                               <ArrowForwardIcon />
