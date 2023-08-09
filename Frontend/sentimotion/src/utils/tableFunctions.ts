@@ -1,4 +1,4 @@
-import { Category, DailyProgress, Order, Progress, Role, Status, SubCategory, User, UserRole, SubComponent, Activity, SubActivity, ProgressQuantity} from "./types";
+import {  Order} from "./types";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -14,8 +14,8 @@ export function getComparator<Key extends keyof any>(
     order: Order,
     orderBy: Key,
 ): (
-    a: { [key in Key]: number | string | boolean | Date | Status | Role | Role[] | Status | Category | Category[] | SubCategory[] | SubCategory | Progress[] | DailyProgress | DailyProgress[] | User | User[] | UserRole | UserRole[] | SubComponent[]|Activity[]|SubActivity[]|ProgressQuantity[]},
-    b: { [key in Key]: number | string | boolean | Date | Status | Role | Role[] | Status | Category | Category[] | SubCategory[] | SubCategory | Progress[] | DailyProgress | DailyProgress[] | User | User[] | UserRole | UserRole[] | SubComponent[] | Activity[]|SubActivity[]| ProgressQuantity[]},
+    a: { [key in Key]: number | string | boolean | Date},
+    b: { [key in Key]: number | string | boolean | Date},
 ) => number {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)

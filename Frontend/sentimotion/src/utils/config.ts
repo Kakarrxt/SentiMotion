@@ -1,3 +1,3 @@
 export const appPageConfig = {
-    "dashboard": "dashboard",  
+    "model": "model",  
 };

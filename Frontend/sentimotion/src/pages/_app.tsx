@@ -1,28 +1,19 @@
-"use client";
-import {
-    Hydrate
-} from '@tanstack/react-query';
+import { Hydrate } from '@tanstack/react-query';
 import { AppProps } from 'next/app';
-import { Roboto } from 'next/font/google'
 import NavBar from './navigation/NavBar';
 import Footer from './common/Footer';
+import Providers from '@/app/providers/Providers';
 
-const roboto = Roboto({
-    weight: '400',
-    subsets: ['latin'],
-})
-
-export default function App(props: AppProps) {
-
-    const { Component, pageProps } = props;
-
+export default function App({ Component, pageProps }: AppProps) {
     return (
+        <Providers>
             <Hydrate state={pageProps.dehydratedState}>
-                <main className={roboto.className}>
-                <NavBar/>
-                <Component {...pageProps} />
-                <Footer />
+                <main>
+                    <NavBar />
+                    <Component {...pageProps} />
+                    <Footer />
                 </main>
             </Hydrate>
+        </Providers>
     );
 }
