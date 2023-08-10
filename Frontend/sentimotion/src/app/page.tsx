@@ -65,6 +65,13 @@ export default function Home() {
     }
   };
 
+  const handleTestPage = async () => {
+    try {
+      await router.push('/test');
+    } catch (error) {
+      console.error("Error navigating to model page:", error);
+    }
+  };
   return (
     <main style={{ backgroundColor: '#f5f5f5' }}>
       {
@@ -158,6 +165,18 @@ export default function Home() {
                               </Typography>
                             </Fragment>
                           }
+                          action={
+                            <Grid container alignItems="center">
+                              <Tooltip title="Go to Test">
+                                <StyledIconButton
+                                  size="small"
+                                  onClick={handleTestPage}
+                                  sx={{ color: "#fff" }}
+                                >
+                                  <ArrowForwardIcon />
+                                </StyledIconButton>
+                              </Tooltip>
+                            </Grid>}
                         />
                       </StyledCard>
                     </Grid>
