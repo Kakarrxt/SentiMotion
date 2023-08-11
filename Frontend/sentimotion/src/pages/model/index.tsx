@@ -3,80 +3,46 @@ import axios from "axios";
 
 const Model = () => {
   const videoRef = useRef(null);
-  const canvasRef = useRef(null);
+  const predictRef = useRef(null);
 
   useEffect(() => {
-    const webcamPromise = navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-      });
+    const setupWebcam = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (error) {
+        console.error("Error accessing webcam:", error);
+      }
+    };
 
-    Promise.all([webcamPromise])
-      .then(() => {
-        detectFrame();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    setupWebcam();
   }, []);
 
-  const detectFrame = async () => {
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
+  useEffect(() => {
+    if (videoRef.current) {
+      fetchPredict();
+    }
+  }, []);
 
-    if (canvas && video) {
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      const videoStream = canvas.captureStream();
-      const videoTrack = videoStream.getVideoTracks()[0];
-      const mediaRecorder = new MediaRecorder(videoStream);
-      const chunks = [];
-
-      mediaRecorder.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          chunks.push(event.data);
-        }
-      };
-
-      mediaRecorder.onstop = async () => {
-        const blob = new Blob(chunks, { type: "video/webm" });
-        const formData = new FormData();
-        formData.append("video", blob, "video.webm");
-        
-        try {
-          const response = await axios.post("http://localhost:5000/predict", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-
-          console.log(response.data);
-
-          response.data.frames.forEach((frame) => {
-            const { x, y, width, height, label } = frame;
-            ctx.strokeStyle = "#00FFFF";
-            ctx.lineWidth = 2;
-            ctx.strokeRect(x, y, width, height);
-            ctx.font = "16px sans-serif";
-            ctx.fillStyle = "#00FFFF";
-            ctx.fillText(label, x, y - 5);
-          });
-
-          requestAnimationFrame(detectFrame);
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
-      setTimeout(() => {
-        mediaRecorder.stop();
-      }, 2000); // Stop recording after 2 seconds
-
-      mediaRecorder.start();
+  const fetchPredict = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/predict",
+        new URLSearchParams({
+          video: videoRef.current.srcObject,
+        })
+      );
+      if (predictRef.current) {
+        predictRef.current.src = URL.createObjectURL(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
   };
+
+  console.log(videoRef.current,"videoRef.current");
 
   return (
     <div>
@@ -88,12 +54,16 @@ const Model = () => {
         width="600"
         height="500"
       />
-      <canvas
-        ref={canvasRef}
-        width="600"
-        height="500"
-        style={{ border: "2px solid #00FFFF" }}
-      />
+      {predictRef.current !== null && (
+        <video
+          ref={predictRef}
+          autoPlay
+          playsInline
+          muted
+          width="600"
+          height="500"
+        />
+      )}
     </div>
   );
 };
