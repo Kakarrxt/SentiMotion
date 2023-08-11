@@ -10,43 +10,50 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# from keras_preprocessing.image import load_img
-json_file = open("C:/projects/MNIT Hackathon/Model/emotiondetector.json", "r")
+
+
+# Load the pre-trained emotion detection model
+model_path = "C:/projects/MNIT Hackathon/Model/"
+json_file = open(model_path + "emotiondetector.json", "r")
 model_json = json_file.read()
 json_file.close()
 model = model_from_json(model_json)
+model.load_weights(model_path + "emotiondetector.h5")
 
-model.load_weights("C:/projects/MNIT Hackathon/Model/emotiondetector.h5")
-haar_file=cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
-face_cascade=cv2.CascadeClassifier(haar_file)
+# Load Haarcascade classifier XML file
+haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
+face_cascade = cv2.CascadeClassifier(haar_file)
 
 def extract_features(image):
-    feature = np.array(image)
-    feature = feature.reshape(1,48,48,1)
-    return feature/255.0
+    feature = image.reshape(1, 48, 48, 1)
+    return feature
 
 
 def generate_frames():
     webcam = cv2.VideoCapture(0)
     labels = {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy', 4: 'neutral', 5: 'sad', 6: 'surprise'}
     while True:
-        ret, im = webcam.read()
+        ret, frame = webcam.read()
         if not ret:
+            print("Error reading webcam frame")
             break
         
-        gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
         
-        for (p, q, r, s) in faces:
-            image = gray[q:q+s, p:p+r]
-            cv2.rectangle(im, (p, q), (p+r, q+s), (255, 0, 0), 2)
-            image = cv2.resize(image, (48, 48))
-            img = extract_features(image)
-            pred = model.predict(img)
+        for (x, y, w, h) in faces:
+            face_image = gray[y:y+h, x:x+w]
+            cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
+            resized_face = cv2.resize(face_image, (48, 48))
+            img = extract_features(resized_face)
+            pred = model.predict(img)  
             prediction_label = labels[pred.argmax()]
-            cv2.putText(im, '%s' % prediction_label, (p-10, q-10), cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (0, 0, 255))
+            prediction_percentage = np.max(pred)*10   # Get the maximum prediction probability
+            
+            text = f"{prediction_label}: {prediction_percentage:.2f}%"
+            cv2.putText(frame, text, (x, y-40), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         
-        _, buffer = cv2.imencode('.jpg', im)
+        _, buffer = cv2.imencode('.jpg', frame)  
         frame_data = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_data + b'\r\n')
@@ -63,11 +70,3 @@ def test():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-
-
-
-
