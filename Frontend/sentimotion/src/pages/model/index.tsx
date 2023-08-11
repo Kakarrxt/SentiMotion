@@ -1,21 +1,13 @@
-import Box, { BoxProps } from "@mui/material/Box";
-import Fab, { FabProps } from '@mui/material/Fab';
-import Grid, { GridProps } from "@mui/material/Grid";
-import { styled } from "@mui/material/styles";
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
-import Webcam from "react-webcam";
-import WebcamVideo from "./webcam-video";
+import React, { useRef, useEffect } from "react";
+import axios from "axios";
 
+const Model = () => {
 
+  return (
+    <div>
+      <img src="http://localhost:5000/test" alt="Video Stream" />
+    </div>
+  );
+};
 
-
-export default function Model() {
-    return (
-
-        <div className="App">
-        <WebcamVideo/>
-      </div>
-     
-    );
-}
+export default Model;
