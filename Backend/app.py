@@ -52,6 +52,15 @@ def generate_frames():
                b'Content-Type: image/jpeg\r\n\r\n' + frame_data + b'\r\n')
 
 
+@app.route('/predict', methods=['GET'])
+def test():
+    try:
+          return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return jsonify({"error": error_message}), 500
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 
