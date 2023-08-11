@@ -1,15 +1,3 @@
-import cv2
-from keras.models import model_from_json
-import numpy as np
-# from keras_preprocessing.image import load_img
-json_file = open("C:/projects/MNIT Hackathon/Model/emotiondetector.json", "r")
-model_json = json_file.read()
-json_file.close()
-model = model_from_json(model_json)
-
-model.load_weights("C:/projects/MNIT Hackathon/Model/emotiondetector.h5")
-haar_file=cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
-face_cascade=cv2.CascadeClassifier(haar_file)
 
 def extract_features(image):
     feature = np.array(image)
