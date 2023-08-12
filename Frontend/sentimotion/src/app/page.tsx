@@ -1,5 +1,5 @@
 "use client"
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import './styles/globals.css';
 import _app from '@/pages/_app';
@@ -13,14 +13,15 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import InfoIcon from '@mui/icons-material/Info';
 import homeimg from './img/home.jpg';
-import home2img from './img/home2.webp';
+import home2img from './img/home2.webp';;
+
 
 const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
   margin: theme.spacing(1),
   '& .MuiCardHeader-root': {
     background: '#fff',
     '& .MuiTypography-root': {
-     
+
     },
   },
   '& .MuiCardContent-root': {
@@ -55,7 +56,7 @@ export default function Home() {
 
   const router = useRouter();
   const homeUrl = homeimg.src;
-  const home2Url = home2img.src;
+  const [play, setPlay] = useState(false);
 
   const handleModelPage = async () => {
     try {
@@ -72,48 +73,59 @@ export default function Home() {
       console.error("Error navigating to model page:", error);
     }
   };
+
+  const videoRef = useRef(null);
+
+
   return (
     <main style={{ backgroundColor: '#f5f5f5' }}>
       {
         <>
           <NavBar />
           <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }}>
+
             <Grid item xs={12}>
               <StyledCard>
                 <CardHeader
                   title={
                     <Typography
-                    gutterBottom
-                    variant="h1"
-                    component="div"
-                    align="center"
-                    style={{
-                      fontWeight: 'bold',
-                      fontFamily: 'sans-serif',
-                      fontSize:'50px',
-                    }}
-                  >
-                    Welcome to SentiMotion
-                  </Typography>
+                      gutterBottom
+                      variant="h1"
+                      component="div"
+                      align="center"
+                      style={{
+                        fontWeight: 'bold',
+                        fontFamily: 'sans-serif',
+                        fontSize: '50px',
+                      }}
+                    >
+                      Welcome to SentiMotion
+                    </Typography>
                   }
 
                   subheader={
                     <Fragment>
-                      <Typography variant='h6' align='center' color={'#5A5A5A'}   
-                      style={{
-                        fontSize:'20px',
-                        fontFamily: 'monospace',
-                    }}>
+                      <Typography variant='h6' align='center' color={'#5A5A5A'}
+                        style={{
+                          fontSize: '20px',
+                          fontFamily: 'monospace',
+                        }}>
                         Made by: Kanav, Abhiram and Keshav
                       </Typography>
                     </Fragment>}
                 />
-                <CardMedia
-                  component="img"
-                  height="500"
-                  image={home2Url}
-                  alt="Face"
-                />
+                <CardMedia>
+                  <video ref={videoRef} style={{
+                    padding: '5px',
+                    width: '100%',
+                    height: '600px',
+                    objectFit: 'cover',
+                  }} autoPlay loop muted>
+                    <source src="videos/video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </CardMedia>
+
               </StyledCard>
             </Grid>
             <Grid item xs={11}>
@@ -165,18 +177,18 @@ export default function Home() {
                               </Typography>
                             </Fragment>
                           }
-                          action={
-                            <Grid container alignItems="center">
-                              <Tooltip title="Go to Test">
-                                <StyledIconButton
-                                  size="small"
-                                  onClick={handleTestPage}
-                                  sx={{ color: "#fff" }}
-                                >
-                                  <ArrowForwardIcon />
-                                </StyledIconButton>
-                              </Tooltip>
-                            </Grid>}
+                        // action={
+                        //   <Grid container alignItems="center">
+                        //     <Tooltip title="Go to Test">
+                        //       <StyledIconButton
+                        //         size="small"
+                        //         onClick={handleTestPage}
+                        //         sx={{ color: "#fff" }}
+                        //       >
+                        //         <ArrowForwardIcon />
+                        //       </StyledIconButton>
+                        //     </Tooltip>
+                        //   </Grid>}
                         />
                       </StyledCard>
                     </Grid>
@@ -254,6 +266,6 @@ export default function Home() {
           <Footer />
         </>
       }
-    </main>
+    </main >
   )
 }
