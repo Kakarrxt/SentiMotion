@@ -3,7 +3,7 @@ export interface AppState {
   openSnackBar: boolean;
   selectedPage: AppTab | null;
   activityTypes: ActivityType[];
-  
+  Predictions: Prediction[];
 }
 export type appStateAction =
   | {
@@ -19,8 +19,8 @@ export type appStateAction =
       value: AppTab | null;
     }
   | {
-    type: "setActivityTypes";
-    value: ActivityType[];
+    type: "setPredictions";
+    value: Prediction[];
   };
 
 
@@ -46,7 +46,10 @@ export interface SnackBarInfo {
   duration?: number;
 }
 
-
+export interface Prediction {
+  label: string;
+  percentage: number;
+}
 
 export interface ActivityType {
   id: string;

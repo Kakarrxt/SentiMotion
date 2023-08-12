@@ -1,22 +1,7 @@
 
 export const dataFetchKeys = {
-    currentUser: "currentUser",
-    users: "users",
-    roles: "roles",
-    statuses: "statuses",
-    defaultPassword: "defaultPassword",
-    project:'project',
-    component:'component',
-    subComponent:'subComponent',
-    document:'document',
-    activity:'activity',
-    activityTypes:'activityTypes',
-    subActivity:'subActivity',
-    subCategories:'subCategories',
-    categories:'categories',
-    documentStatistic:'documentStatistic',
-    units:'units',
-    progress:'progress',
+   predictions: "predictions",
+    
 }
 
 export const statusList = {
