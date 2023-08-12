@@ -13,12 +13,11 @@ CORS(app)
 
 
 # Load the pre-trained emotion detection model
-model_path = "C:/projects/MNIT Hackathon/Model/"
-json_file = open(model_path + "emotiondetector.json", "r")
+json_file = open("./emotiondetector.json", "r")
 model_json = json_file.read()
 json_file.close()
 model = model_from_json(model_json)
-model.load_weights(model_path + "emotiondetector.h5")
+model.load_weights("./emotiondetector.h5")
 
 # Load Haarcascade classifier XML file
 haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
