@@ -13,7 +13,9 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import InfoIcon from '@mui/icons-material/Info';
 import homeimg from './img/home.jpg';
-import home2img from './img/home2.webp';;
+import SendIcon from '@mui/icons-material/Send';
+import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 
 const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
@@ -56,7 +58,7 @@ export default function Home() {
 
   const router = useRouter();
   const homeUrl = homeimg.src;
-  const [play, setPlay] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   const handleModelPage = async () => {
     try {
@@ -66,11 +68,11 @@ export default function Home() {
     }
   };
 
-  const handleTestPage = async () => {
+  const handleGithub = async () => {
     try {
-      await router.push('/test');
+      window.location.href = 'https://github.com/Kakarrxt/SentiMotion';
     } catch (error) {
-      console.error("Error navigating to model page:", error);
+      console.error("Error navigating to Github page:", error);
     }
   };
 
@@ -130,34 +132,115 @@ export default function Home() {
             </Grid>
             <Grid item xs={11}>
               <Grid container direction="row" justifyContent={'center'}>
-                <Grid item xs={6} >
-                  <StyledCard>
-                    <CardHeader
-                      title={
-                        <Typography gutterBottom variant="h2" component="div">
-                          Click Here to go to Our Product
+                <Grid item xs={4} style={{ padding: '10px' }}>
+
+                  <Button
+                    variant="contained"
+                    onClick={handleModelPage}
+                    sx={{
+                      padding: '30px',
+                      color:'white',
+                      width: '100%',
+                      backgroundColor: 'black',
+                      transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
+                      boxShadow: hovered ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
+                      borderRadius: '8px',
+                      transform:'scale(1)', 
+                      '&:hover': {
+                        backgroundColor: 'white',
+                        color: 'black',
+                        transform:'scale(1.05)' ,
+                      },
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                      <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                        <VideoCameraFrontIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
+                      </div>
+                      <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
+                        <Typography
+                          variant="h1"
+                          component="div"
+                          align="left"
+                          style={{
+                            fontWeight: 'bold',
+                            fontFamily: 'sans-serif',
+                          }}
+                        >
+                          Model
                         </Typography>
-                      }
-                      subheader={
-                        <Fragment>
-                          <Typography>
-                            You can test our Emotion Recognizer from here
-                          </Typography>
-                        </Fragment>}
-                      action={
-                        <Grid container alignItems="center">
-                          <Tooltip title="Go to Model">
-                            <StyledIconButton
-                              size="small"
-                              onClick={handleModelPage}
-                              sx={{ color: "#fff" }}
-                            >
-                              <ArrowForwardIcon />
-                            </StyledIconButton>
-                          </Tooltip>
-                        </Grid>}
-                    />
-                  </StyledCard>
+                        <Typography
+                          variant="h6"
+                          align="left"
+                          color="#5A5A5A"
+                          style={{
+                            fontFamily: 'monospace',
+                          }}
+                        >
+                          You can test our Emotion Recognizer from here
+                        </Typography>
+                      </div>
+                    </div>
+                  </Button>
+                </Grid>
+                <Grid item xs={4} style={{ padding: '10px' }}>
+
+                  <Button
+                    variant="contained"
+                    onClick={handleGithub}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                    sx={{
+                      padding: '30px',
+                      color: hovered ? 'black' : 'white',
+                      width: '100%',
+                      backgroundColor: hovered ? 'white' : 'black',
+                      transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
+                      boxShadow: hovered ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
+                      borderRadius: '8px',
+                      transform: hovered ? 'scale(1.05)' : 'scale(1)', 
+                      '&:hover': {
+                        backgroundColor: 'white',
+                        color: 'black',
+                      },
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                      <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                        <GitHubIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
+                      </div>
+                      <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
+                        <Typography
+                          variant="h1"
+                          component="div"
+                          align="left"
+                          style={{
+                            fontWeight: 'bold',
+                            fontFamily: 'sans-serif',
+                          }}
+                        >
+                          GitHub
+                        </Typography>
+                        <Typography
+                          variant="h6"
+                          align="left"
+                          color="#5A5A5A"
+                          style={{
+                            fontFamily: 'monospace',
+                          }}
+                        >
+                          Check out our GitHub repository
+                        </Typography>
+                      </div>
+                    </div>
+                  </Button>
+
                 </Grid>
 
                 <Grid item xs={12}>
@@ -177,18 +260,6 @@ export default function Home() {
                               </Typography>
                             </Fragment>
                           }
-                        // action={
-                        //   <Grid container alignItems="center">
-                        //     <Tooltip title="Go to Test">
-                        //       <StyledIconButton
-                        //         size="small"
-                        //         onClick={handleTestPage}
-                        //         sx={{ color: "#fff" }}
-                        //       >
-                        //         <ArrowForwardIcon />
-                        //       </StyledIconButton>
-                        //     </Tooltip>
-                        //   </Grid>}
                         />
                       </StyledCard>
                     </Grid>
