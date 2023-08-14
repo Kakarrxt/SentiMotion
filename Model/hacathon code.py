@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from keras.models import model_from_json
-
+from keras.models import  load_model
 # Load the pre-trained emotion detection model
 model_path = "C:/projects/MNIT Hackathon/Model/"
 json_file = open(model_path + "emotiondetector.json", "r")
@@ -10,10 +10,11 @@ json_file.close()
 model = model_from_json(model_json)
 model.load_weights(model_path + "emotiondetector.h5")
 
+
 # Load Haarcascade classifier XML file
 haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
 face_cascade = cv2.CascadeClassifier(haar_file)
-
+prediction_results = []
 def extract_features(image):
     feature = image.reshape(1, 48, 48, 1)
     return feature
@@ -38,7 +39,10 @@ while True:
             img = extract_features(resized_face)
             pred = model.predict(img)  
             prediction_label = labels[pred.argmax()]
-            cv2.putText(frame, prediction_label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
+            prediction_percentage = np.max(pred)*10   # Get the maximum prediction probability
+            prediction_results.append((prediction_label, prediction_percentage))
+            text = f"{prediction_label}: {prediction_percentage:.2f}%"
+            cv2.putText(frame, text, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
         
         cv2.imshow("Emotion Detection", frame)
         
