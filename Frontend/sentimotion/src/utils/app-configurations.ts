@@ -8,8 +8,8 @@ export const appConfigurations = appConfigs();
 
 const appKeyConfigs = () => {
     return {
-        keyToken: process.env.REACT_APP_KEY_TOKEN || "keyUserInfoWaterDashboardFrontend",
-        keyUserInfo: process.env.REACT_APP_KEY_USER_INFO || "keyTokenWaterDashboardFrontend",
+        keyToken: process.env.REACT_APP_KEY_TOKEN || "keyUserInfoSentiMotionFrontend",
+        keyUserInfo: process.env.REACT_APP_KEY_USER_INFO || "keyTokenSentiMotionFrontend",
     }
 }
 
