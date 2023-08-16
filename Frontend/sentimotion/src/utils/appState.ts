@@ -10,10 +10,7 @@ export const initialAppState: AppState = {
     snackBarInfo: null,
     openSnackBar: false,
     selectedPage: "model",
-    activityTypes: [],
-
-
-    
+    Predictions: [],
 };
 
 
@@ -29,11 +26,6 @@ export function appReducer(state: AppState, action: appStateAction): AppState {
         }
         case "setSelectedPage": {
             const newState: AppState = { ...state, selectedPage: action.value };
-            return newState
-        }
-        case "setActivityTypes": {
-            const newState: AppState = { ...state, activityTypes: action.value };
-          
             return newState
         }
         default:

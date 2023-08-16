@@ -12,7 +12,7 @@ import AnimatedTextCharacter from './TextAnimation2';
 
 const draw = {
   hidden: { pathLength: 0, opacity: 0 },
-  visible: (i) => {
+  visible: (i: number) => {
     const delay = 1 + i * 0.5;
     return {
       pathLength: 1,

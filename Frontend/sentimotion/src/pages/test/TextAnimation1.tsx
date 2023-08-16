@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Typography } from "@mui/material";
 
-const AnimatedTextWord = ({ text}) => {
+const AnimatedTextWord = ({ text }: { text: string }) => {
   const words = text.split(" ");
 
   const container = {

@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Typography } from "@mui/material";
 
-const AnimatedTextCharacter = ({ text }) => {
+const AnimatedTextCharacter = ({ text }: { text: string }) => {
     const letters = Array.from(text);
 
     const container = {
@@ -42,12 +42,12 @@ const AnimatedTextCharacter = ({ text }) => {
             variant="h6"
             component={motion.div}
             align="center"
-            color={'#5A5A5A'}
             style={{
                 fontSize: '20px',
                 fontFamily: 'monospace',
                 overflow: 'hidden',
                 display: 'flex',
+                color: '#5A5A5A', // Moved color property here
             }}
             variants={container}
             initial="hidden"
