@@ -6,16 +6,16 @@ import _app from '@/pages/_app';
 import NavBar from '@/pages/navigation/NavBar';
 import Footer from '@/pages/common/Footer';
 import { Card, CardContent, CardActions, Button, styled, CardProps, CardHeader, Typography, Grid, Tooltip, IconButton, IconButtonProps, CardMedia, Box } from '@mui/material';
-import { appRoute } from '@/utils/routeConfig';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import InfoIcon from '@mui/icons-material/Info';
 import homeimg from './img/home.jpg';
-import SendIcon from '@mui/icons-material/Send';
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { motion } from 'framer-motion';
+import AnimatedTextWord from '@/pages/test/TextAnimation1';
+import AnimatedTextCharacter from '@/pages/test/TextAnimation2';
 
 
 const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
@@ -32,25 +32,6 @@ const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
     paddingTop: 0,
     marginTop: theme.spacing(1),
   },
-}));
-
-
-
-
-
-const StyledIconButton = styled(IconButton)<IconButtonProps>(({ theme }) => ({
-  '&:hover': {
-    backgroundColor: theme.palette.common.black,
-    marginLeft: theme.spacing(1),
-    '& svg': {
-      fontSize: 34,
-      color: theme.palette.common.white,
-    }
-  },
-  '& svg': {
-    fontSize: 24,
-    color: theme.palette.common.black,
-  }
 }));
 
 
@@ -90,30 +71,16 @@ export default function Home() {
               <StyledCard>
                 <CardHeader
                   title={
-                    <Typography
-                      gutterBottom
-                      variant="h1"
-                      component="div"
-                      align="center"
-                      style={{
-                        fontWeight: 'bold',
-                        fontFamily: 'sans-serif',
-                        fontSize: '50px',
-                      }}
-                    >
-                      Welcome to SentiMotion
-                    </Typography>
+                    <motion.div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <AnimatedTextWord text="Welcome to SentiMotion"/>
+                    </motion.div>
                   }
 
                   subheader={
                     <Fragment>
-                      <Typography variant='h6' align='center' color={'#5A5A5A'}
-                        style={{
-                          fontSize: '20px',
-                          fontFamily: 'monospace',
-                        }}>
-                        Made by: Kanav, Abhiram and Keshav
-                      </Typography>
+                     <motion.div style={{ display: 'flex', justifyContent: 'center' }}>
+                     <AnimatedTextCharacter text="Made by: Kanav, Keshav and Abhiram" />
+                    </motion.div>
                     </Fragment>}
                 />
                 <CardMedia>
