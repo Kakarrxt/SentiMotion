@@ -47,7 +47,7 @@ const AnimatedTextCharacter = ({ text }: { text: string }) => {
                 fontFamily: 'monospace',
                 overflow: 'hidden',
                 display: 'flex',
-                color: '#5A5A5A', // Moved color property here
+                color: '#5A5A5A',
             }}
             variants={container}
             initial="hidden"
