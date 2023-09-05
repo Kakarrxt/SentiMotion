@@ -102,9 +102,6 @@ def value():
             prediction_label, prediction_percentage = values[-1]
             value = {"label": prediction_label, "percentage": prediction_percentage}
             return jsonify(value)
-        # else:
-        #     value = {"label": "No Value Available", "percentage": 0}
-        #     return jsonify(value)
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
         return jsonify({"error": error_message}), 500
