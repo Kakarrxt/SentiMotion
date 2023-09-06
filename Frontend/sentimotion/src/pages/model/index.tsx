@@ -5,15 +5,18 @@ import { Grid, GridProps, styled } from '@mui/material';
 import ThreeDModel from '../common/3dmodel';
 
 
-const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  padding: theme.spacing(2),
-  display: "flex",
-  justifyContent: "space-around",
-  flexWrap: "wrap",
-}));
+
 
 const Model = () => {
+  const defaultBackgroundColor = 'white';
+  const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
+    marginTop: theme.spacing(2),
+    padding: theme.spacing(2),
+    display: "flex",
+    justifyContent: "space-around",
+    flexWrap: "wrap",
+  
+  }));
 
   const [showFacecam, setShowFacecam] = useState(false);
   const [showScreen, setShowScreen] = useState(false);
