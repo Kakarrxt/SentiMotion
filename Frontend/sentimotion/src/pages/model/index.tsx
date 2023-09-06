@@ -154,6 +154,9 @@ const Model = () => {
             }}
             >
               <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                        <LaptopChromebookIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
+                </div>
                 <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
                           <Typography
                             variant="h1"
@@ -196,6 +199,9 @@ const Model = () => {
             }}
             >
               <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                        <VideoCameraFrontIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
+                </div>
                 <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
                           <Typography
                             variant="h1"
