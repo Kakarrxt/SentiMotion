@@ -5,6 +5,7 @@ import { Button, Typography, Grid, GridProps, styled } from '@mui/material';
 import { withTheme } from '@emotion/react';
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
+import ThreeDModel from '../common/3dmodel';
 
 
 
@@ -39,6 +40,7 @@ const Model = () => {
 
   return (
     <>
+   <ThreeDModel />
       <StyledGrid>
         <h1>Model</h1>
       </StyledGrid>
@@ -254,6 +256,7 @@ const Model = () => {
               </div>
       </Button>
     </>
+    
   );
 };
 export default Model;
