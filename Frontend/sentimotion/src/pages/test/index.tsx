@@ -10,6 +10,7 @@ import {
 import AnimatedTextWord from './TextAnimation1';
 import AnimatedTextCharacter from './TextAnimation2';
 import ThreeDModel from '../common/3dmodel';
+import TorusModel from '../common/torusModel';
 
 const draw = {
   hidden: { pathLength: 0, opacity: 0 },
@@ -248,7 +249,7 @@ export default function Test() {
       </div>
 
       <div>
-        <ThreeDModel />
+        <TorusModel />
       </div>
     </>
   );
