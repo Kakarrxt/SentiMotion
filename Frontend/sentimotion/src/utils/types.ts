@@ -2,7 +2,7 @@ export interface AppState {
   snackBarInfo: SnackBarInfo | null;
   openSnackBar: boolean;
   selectedPage: AppTab | null;
-  Predictions: Prediction[];
+  predictions: Prediction;
 }
 export type appStateAction =
   | {
@@ -19,7 +19,7 @@ export type appStateAction =
     }
   | {
     type: "setPredictions";
-    value: Prediction[];
+    value: Prediction;
   };
 
 

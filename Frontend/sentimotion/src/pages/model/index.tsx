@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import Facecam from './facecam';
 import Screen from './screen';
 import { Grid, GridProps, styled } from '@mui/material';
+import ThreeDModel from '../common/3dmodel';
 
 
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
@@ -34,6 +35,7 @@ const Model = () => {
 
   return (
     <>
+   <ThreeDModel />
       <StyledGrid>
         <h1>Model</h1>
         {!showFacecam && !showScreen && (
@@ -57,6 +59,7 @@ const Model = () => {
       </StyledGrid>
       <button onClick={resetComponents}>Reset</button>
     </>
+    
   );
 };
 export default Model;

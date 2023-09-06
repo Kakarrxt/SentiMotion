@@ -16,6 +16,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { motion } from 'framer-motion';
 import AnimatedTextWord from '@/pages/test/TextAnimation1';
 import AnimatedTextCharacter from '@/pages/test/TextAnimation2';
+import ThreeDModel from '@/pages/common/3dmodel';
 
 
 const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
@@ -209,9 +210,10 @@ export default function Home() {
                   </Button>
 
                 </Grid>
-
+                    
                 <Grid item xs={12}>
                   <Grid container direction="row" justifyContent={'center'}>
+                      
                     <Grid item xs={12}>
                       <StyledCard>
                         <CardHeader
@@ -296,11 +298,14 @@ export default function Home() {
                         </CardContent>
                       </StyledCard>
                     </Grid>
+                    
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
+
+
           <Footer />
         </>
       }

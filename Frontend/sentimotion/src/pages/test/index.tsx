@@ -9,6 +9,7 @@ import {
 } from 'framer-motion';
 import AnimatedTextWord from './TextAnimation1';
 import AnimatedTextCharacter from './TextAnimation2';
+import ThreeDModel from '../common/3dmodel';
 
 const draw = {
   hidden: { pathLength: 0, opacity: 0 },
@@ -244,6 +245,10 @@ export default function Test() {
         <AnimatedTextWord text="Testing the animation" />
         <AnimatedTextCharacter text="Testing the animation" />
 
+      </div>
+
+      <div>
+        <ThreeDModel />
       </div>
     </>
   );
