@@ -138,7 +138,7 @@ const Model = () => {
             sx={{
               padding: '30px',
               color:'white',
-              width: '70%',
+              width: '40%',
               backgroundColor: 'black',
               transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
               borderRadius: '8px',
@@ -183,7 +183,7 @@ const Model = () => {
             sx={{
               padding: '30px',
               color:'white',
-              width: '70%',
+              width: '40%',
               backgroundColor: 'black',
               transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
               borderRadius: '8px',
