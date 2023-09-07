@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import ThreeDModel from "../common/3dmodel";
 import AppContext from "@/app/providers/AppContext";
 import React from "react";
+import RadarGraph from "../common/radarGraph";
 
 const GaugeChart = dynamic(() => import('react-gauge-chart'), { ssr: false });
 
@@ -109,48 +110,7 @@ export default function Value() {
             </StyledCard>
         </Grid>
             <Grid item xs={12}>
-                <StyledCard>
-                    <CardHeader
-                        title={
-                            <Typography
-                                gutterBottom
-                                variant="h1"
-                                component="div"
-                                align="center"
-                                style={{
-                                    fontWeight: 'bold',
-                                    fontFamily: 'sans-serif',
-                                    fontSize: '50px',
-                                }}
-                            >
-                                Confidence Meter
-                            </Typography>
-                        }
-                    />
-                    <CardContent>
-                        {prediction && (
-                            <div
-                                style={{
-                                    borderRadius: '10px',
-                                    padding: '20px',
-                                }}
-                            >
-                                <div style={{ position: 'relative' }}>
-                                    <GaugeChart
-                                        id="gauge-chart2"
-                                        nrOfLevels={30}
-                                        colors={["#03fc8c", "#03adfc", "#9403fc"]}
-                                        arcWidth={0.3}
-                                        percent={prediction.percentage / 100}
-                                        textColor={'#000000'}
-                                    />
-
-                                </div>
-                            </div>
-                        )}
-                    </CardContent>
-
-                </StyledCard>
+                <RadarGraph />
             </Grid>
         </>
 
