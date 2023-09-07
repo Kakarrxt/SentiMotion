@@ -26,12 +26,16 @@ const labelToEmoji: { [key: string]: string } = {
     surprise: "😲",
 };
 
+interface FacecamProps {
+    showCamera: boolean;
+  }
 
-
-export default function Facecam() {
+export default function Facecam( props: FacecamProps ) {
     const appContext = React.useContext(AppContext);
     const { state, dispatch } = appContext;
-    const { predictions } = state;
+    const { predictions} = state;
+    const { showCamera } = props;
+
 
     const defaultBackgroundColor = 'white';
 
@@ -49,6 +53,7 @@ export default function Facecam() {
             justifyContent: 'center',
         },
     }));
+
     return (
         <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }} >
             <Grid item xs={8}>
@@ -77,7 +82,8 @@ export default function Facecam() {
                     />
                     <CardContent>
                         <img src="http://localhost:5000/predict" alt="Video Stream" />
-                    </CardContent></StyledCard>
+                    </CardContent>
+                </StyledCard>
             </Grid>
             <Grid item xs={4}>
                 <Grid container direction="row" justifyContent={'center'}>

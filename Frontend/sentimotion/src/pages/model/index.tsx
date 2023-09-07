@@ -7,6 +7,7 @@ import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
 import ThreeDModel from '../common/3dmodel';
 import TorusModel from '../common/torusModel';
 import AnimatedTextWord from '../test/TextAnimation1';
+import '../styles/globals.css'
 
 
 
@@ -27,6 +28,8 @@ const Model = () => {
   const [showScreen, setShowScreen] = useState(false);
   const [hovered, setHovered] = useState(false);
 
+
+
   const showFacecamComponent = () => {
     setShowFacecam(true);
     setShowScreen(false);
@@ -40,6 +43,7 @@ const Model = () => {
   const resetComponents = () => {
     setShowFacecam(false);
     setShowScreen(false);
+    window.location.reload();
   };
 
   return (
@@ -47,9 +51,10 @@ const Model = () => {
 
 
       <StyledGrid>
-        <div style={{ marginTop: "64px" }}>
-             <AnimatedTextWord text="Select" />
-        </div>
+        {!showFacecam && !showScreen && (
+          <div style={{ marginTop: "64px" }}>
+            <AnimatedTextWord text="Select" />
+          </div>)}
       </StyledGrid>
       <StyledGrid>
         {!showFacecam && !showScreen && (
@@ -191,7 +196,7 @@ const Model = () => {
                 </div>
               </div>
             </Button>
-            <Facecam />
+            <Facecam showCamera={showFacecam} />
           </>
         )}
         {showScreen && (

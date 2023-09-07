@@ -43,7 +43,6 @@ export default function Value() {
     const [prediction, setPrediction] = useState<Prediction>();
     const appContext = React.useContext(AppContext);
     const { state, dispatch } = appContext;
-    const { predictions } = state;
 
     useEffect(() => {
         const interval = setInterval(async () => {
