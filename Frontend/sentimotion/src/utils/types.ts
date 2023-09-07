@@ -2,7 +2,9 @@ export interface AppState {
   snackBarInfo: SnackBarInfo | null;
   openSnackBar: boolean;
   selectedPage: AppTab | null;
-  Predictions: Prediction[];
+  screen: boolean;
+  camera: boolean;
+  predictions: Prediction;
 }
 export type appStateAction =
   | {
@@ -18,26 +20,28 @@ export type appStateAction =
       value: AppTab | null;
     }
   | {
-    type: "setPredictions";
-    value: Prediction[];
-  };
+      type: "setScreen";
+      value: boolean;
+    }
+  | {
+      type: "setCamera";
+      value: boolean;
+    }
+  | {
+      type: "setPredictions";
+      value: Prediction;
+    };
 
-
- export type AppContextType = {
+export type AppContextType = {
   state: AppState;
   dispatch: React.Dispatch<appStateAction>;
 };
 
 export type Order = "asc" | "desc";
 
-export type AppTab =
-  | "model"
+export type AppTab = "model";
 
-
-
-export type StorageDataType = 'string' | 'array' | 'object';
-
-
+export type StorageDataType = "string" | "array" | "object";
 
 export interface SnackBarInfo {
   message: string;
@@ -49,3 +53,11 @@ export interface Prediction {
   label: string;
   percentage: number;
 }
+
+export interface Record{
+  label: string;
+  percentage: number;
+  timestamp: string;
+}
+
+
