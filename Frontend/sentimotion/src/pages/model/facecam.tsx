@@ -3,11 +3,6 @@ import { Button, Card, CardActions, CardContent, CardHeader, CardProps, Grid, Ty
 import Value from "./values";
 import AppContext from "@/app/providers/AppContext";
 import React, { useEffect, useState } from "react";
-import RadarGraph from "../common/radarGraph";
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-
 const emotionToColor: { [key: string]: string } = {
     angry: "red",
     disgust: "green",

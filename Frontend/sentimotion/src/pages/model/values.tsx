@@ -110,7 +110,9 @@ export default function Value() {
             </StyledCard>
         </Grid>
             <Grid item xs={12}>
+                
                 <RadarGraph />
+
             </Grid>
         </>
 
