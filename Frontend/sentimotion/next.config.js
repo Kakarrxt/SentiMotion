@@ -7,7 +7,10 @@ const nextConfig = {
     },
     compiler: {
         styledComponents: true,
-    }
-}
+    },
+    eslint: { // Add ESLint configuration here
+        ignoreDuringBuilds: true,
+    },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardProps, Grid, Typography, styled } from "@mui/material";
-import axios from 'axios';
+
 import Value from "./values";
 import AppContext from "@/app/providers/AppContext";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 
 
@@ -27,16 +27,16 @@ const labelToEmoji: { [key: string]: string } = {
 };
 
 interface FacecamProps {
-    showCamera: boolean;
-  }
+    open: boolean;
+}
 
-export default function Facecam( props: FacecamProps ) {
+export default function Facecam(props: FacecamProps) {
+    const [hovered, setHovered] = useState(false);
     const appContext = React.useContext(AppContext);
     const { state, dispatch } = appContext;
     const { predictions} = state;
     const { showCamera } = props;
-    const [abortController, setAbortController] = useState(new AbortController());
-    const [videoStream, setVideoStream] = useState('');
+
 
     const defaultBackgroundColor = 'white';
   
@@ -85,11 +85,6 @@ export default function Facecam( props: FacecamProps ) {
         },
     }));
 
-
-
-
-
-
     return (
         <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }} >
             <Grid item xs={8}>
@@ -117,22 +112,66 @@ export default function Facecam( props: FacecamProps ) {
                         }
                     />
                     <CardContent>
-                       <img
-                       src="http://localhost:5000/predict"
-                       alt="Video Stream"/>
+                        <img src="http://localhost:5000/predict" alt="Video Stream" />
                     </CardContent>
                 </StyledCard>
             </Grid>
             <Grid item xs={4}>
                 <Grid container direction="row" justifyContent={'center'}>
                     <Grid item xs={12}>
-                      {/* <button onClick={startWebcam}>Start</button>
-                      <button onClick={stopWebcam}>Stop</button> */}
                     </Grid>
-                    <Value />
+
                 </Grid>
             </Grid>
+            <Grid item xs={4}>
+                    <Button
+                        variant="contained"
+                        onClick={handleReport}
+                        sx={{
+                            margin: '-100px',
+                            padding: '30px',
+                            color: '#86b6c6',
+                            width: '90%',
+                            height: '100%',
+                            backgroundColor: 'black',
+                            transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
+                            borderRadius: '8px',
+                            transform: 'scale(1)',
+                            '&:hover': {
+                                backgroundColor: '#86b6c6',
+                                color: 'black',
+                                transform: 'scale(1.05)',
+                            },
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                            <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                                <AssessmentIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
+                            </div>
+                            <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
+                                <Typography
+                                    variant="h1"
+                                    component="div"
+                                    align="left"
+                                    style={{
+                                        fontWeight: 'bold',
+                                        fontFamily: 'sans-serif',
+                                    }}
+                                >
+                                    View Report
+                                </Typography>
+                            </div>
+                        </div>
+                    </Button>
+                </Grid>
+                <Grid item xs={4}>
+                    </Grid>
+
         </Grid>
+
 
 
     )

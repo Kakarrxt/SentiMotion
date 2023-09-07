@@ -53,3 +53,11 @@ export interface Prediction {
   label: string;
   percentage: number;
 }
+
+export interface Record{
+  label: string;
+  percentage: number;
+  timestamp: string;
+}
+
+

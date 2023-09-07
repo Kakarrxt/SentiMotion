@@ -1,8 +1,9 @@
 import { Prediction } from "@/utils/types";
-import { Card, CardContent, CardHeader, CardProps, Grid, Typography, Zoom, styled } from "@mui/material";
+import { Button, Card, CardContent, CardHeader, CardProps, Grid, Typography, Zoom, styled } from "@mui/material";
 import { Fragment, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Value from "./values";
+
 
 function fetchData(url: RequestInfo | URL) {
     return fetch(url).then(response => response.json());
@@ -10,8 +11,8 @@ function fetchData(url: RequestInfo | URL) {
 const GaugeChart = dynamic(() => import('react-gauge-chart'), { ssr: false });
 
 export default function Screen() {
-
     const [prediction, setPrediction] = useState<Prediction>();
+    const [hovered, setHovered] = useState(false);
 
     const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
         margin: theme.spacing(1),
@@ -29,7 +30,7 @@ export default function Screen() {
         },
     }));
 
-
+  
 
     return (
         <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }}>

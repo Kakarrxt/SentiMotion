@@ -84,7 +84,20 @@ const Model = () => {
       <StyledGrid>
         {!showFacecam && !showScreen && (
           <div style={{ marginTop: "64px" }}>
-            <AnimatedTextWord text="Select" />
+            <Typography
+              gutterBottom
+              variant="h1"
+              align="center"
+              style={{
+                fontWeight: 'bold',
+                fontFamily: 'sans-serif',
+                fontSize: '50px',
+                overflow: 'hidden',
+                display: 'flex',
+              }}
+            >
+              Models
+            </Typography>
           </div>)}
       </StyledGrid>
       <StyledGrid>
@@ -227,7 +240,7 @@ const Model = () => {
                 </div>
               </div>
             </Button>
-            <Facecam showCamera={showFacecam} />
+            <Facecam open={showFacecam} />
           </>
         )}
         {showScreen && (
