@@ -7,17 +7,16 @@ import NavBar from '@/pages/navigation/NavBar';
 import Footer from '@/pages/common/Footer';
 import { Card, CardContent, CardActions, Button, styled, CardProps, CardHeader, Typography, Grid, Tooltip, IconButton, IconButtonProps, CardMedia, Box } from '@mui/material';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-import InfoIcon from '@mui/icons-material/Info';
 import homeimg from './img/home.jpg';
 import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { motion } from 'framer-motion';
 import AnimatedTextWord from '@/pages/test/TextAnimation1';
 import AnimatedTextCharacter from '@/pages/test/TextAnimation2';
-import ThreeDModel from '@/pages/common/3dmodel';
-
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
   margin: theme.spacing(1),
@@ -73,15 +72,15 @@ export default function Home() {
                 <CardHeader
                   title={
                     <motion.div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <AnimatedTextWord text="Welcome to SentiMotion"/>
+                      <AnimatedTextWord text="Welcome to SentiMotion" />
                     </motion.div>
                   }
 
                   subheader={
                     <Fragment>
-                     <motion.div style={{ display: 'flex', justifyContent: 'center' }}>
-                     <AnimatedTextCharacter text="Made by: Kanav, Keshav and Abhiram" />
-                    </motion.div>
+                      <motion.div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <AnimatedTextCharacter text="Made by: Kanav, Keshav and Abhiram" />
+                      </motion.div>
                     </Fragment>}
                 />
                 <CardMedia>
@@ -107,17 +106,17 @@ export default function Home() {
                     onClick={handleModelPage}
                     sx={{
                       padding: '30px',
-                      color:'white',
+                      color: 'white',
                       width: '100%',
                       backgroundColor: 'black',
                       transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
                       boxShadow: hovered ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
                       borderRadius: '8px',
-                      transform:'scale(1)', 
+                      transform: 'scale(1)',
                       '&:hover': {
                         backgroundColor: 'white',
                         color: 'black',
-                        transform:'scale(1.05)' ,
+                        transform: 'scale(1.05)',
                       },
                       display: 'flex',
                       alignItems: 'center',
@@ -169,7 +168,7 @@ export default function Home() {
                       transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
                       boxShadow: hovered ? '0 4px 6px rgba(0, 0, 0, 0.1)' : 'none',
                       borderRadius: '8px',
-                      transform: hovered ? 'scale(1.05)' : 'scale(1)', 
+                      transform: hovered ? 'scale(1.05)' : 'scale(1)',
                       '&:hover': {
                         backgroundColor: 'white',
                         color: 'black',
@@ -210,95 +209,115 @@ export default function Home() {
                   </Button>
 
                 </Grid>
-                    
+
                 <Grid item xs={12}>
                   <Grid container direction="row" justifyContent={'center'}>
-                      
+
                     <Grid item xs={12}>
                       <StyledCard>
                         <CardHeader
                           title={
                             <Typography gutterBottom variant="h1" component="div" align='center'>
-                              Features
+                              About SentiMotion
                             </Typography>
-                          }
-                          subheader={
-                            <Fragment>
-                              <Typography align='center'>
-                                More info
-                              </Typography>
-                            </Fragment>
                           }
                         />
                       </StyledCard>
                     </Grid>
-                    <Grid item xs={3}>
-                      <StyledCard>
-                        <CardHeader
+                    <Grid item xs={4}>
+                      <StyledCard style={{background:'black'}}>
+                        <CardHeader style={{background:'black'}}
                           title={
                             <Typography gutterBottom component="div" align='center'>
-                              <AddBoxIcon style={{ fontSize: '40px' }} />
+                              <OpenInBrowserIcon style={{ fontSize: '40px' , color:'white'}} />
                             </Typography>
                           }
                         />
                         <CardContent>
-                          <Typography gutterBottom variant="h3" sx={{ color: 'rgba(32, 43, 143, 1)' }} component="div">
-                            1
+                          <Typography
+                            gutterBottom
+                            variant="h6"
+                            component={motion.div}
+                            align="center"
+                            style={{
+                              fontSize: '15px',
+                              fontFamily: 'monospace',
+                              overflow: 'hidden',
+                              display: 'flex',
+                              color: '#86b6c6',
+                            }}
+
+                          >
+                            Our innovative website combines webcam and voice inputs to revolutionize emotion detection.
+                             It offers an immersive user experience by seamlessly integrating technology and psychology. 
+                             Our platform can accurately analyze emotions in real-time, opening up numerous applications.
                           </Typography>
                         </CardContent>
                       </StyledCard>
                     </Grid>
-                    <Grid item xs={3}>
-                      <StyledCard>
-                        <CardHeader
+                    <Grid item xs={4}>
+                      <StyledCard style={{background:'black'}}>
+                        <CardHeader style={{background:'black'}}
                           title={
                             <Typography gutterBottom component="div" align='center'>
-                              <InsertDriveFileIcon style={{ fontSize: '40px' }} />
+                              <CameraAltIcon style={{ fontSize: '40px' , color:'white' }} />
                             </Typography>
                           }
                         />
                         <CardContent>
-                          <Typography gutterBottom variant="h3" sx={{ color: 'rgba(32, 43, 143, 1)' }} component="div">
-                            2
+                        <Typography
+                            gutterBottom
+                            variant="h6"
+                            component={motion.div}
+                            align="center"
+                            style={{
+                              fontSize: '15px',
+                              fontFamily: 'monospace',
+                              overflow: 'hidden',
+                              display: 'flex',
+                              color: '#86b6c6',
+                            }}
+
+                          >
+                           Our website excels in Visual Emotion Detection through your webcam, capturing facial expressions with precision.
+                            It also goes beyond by analyzing voice cues, including tone, pitch, and inflections, for accurate emotional state assessment.
                           </Typography>
                         </CardContent>
                       </StyledCard>
                     </Grid>
 
-                    <Grid item xs={3}>
-                      <StyledCard>
-                        <CardHeader
+                    <Grid item xs={4}>
+                      <StyledCard style={{background:'black'}}>
+                        <CardHeader style={{background:'black'}}
                           title={
                             <Typography gutterBottom component="div" align='center'>
-                              <DonutLargeIcon style={{ fontSize: '40px' }} />
+                              <GroupAddIcon style={{ fontSize: '40px', color:'white' }} />
                             </Typography>
                           }
                         />
                         <CardContent>
-                          <Typography gutterBottom variant="h3" sx={{ color: 'rgba(32, 43, 143, 1)' }} component="div">
-                            3
-                          </Typography>
-                        </CardContent>
-                      </StyledCard>
-                    </Grid>
-                    <Grid item xs={3}>
+                        <Typography
+                            gutterBottom
+                            variant="h6"
+                            component={motion.div}
+                            align="center"
+                            style={{
+                              fontSize: '15px',
+                              fontFamily: 'monospace',
+                              overflow: 'hidden',
+                              display: 'flex',
+                              color: '#86b6c6',
+                            }}
 
-                      <StyledCard>
-                        <CardHeader
-                          title={
-                            <Typography gutterBottom component="div" align='center'>
-                              <InfoIcon style={{ fontSize: '40px' }} />
-                            </Typography>
-                          }
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h3" sx={{ color: 'rgba(32, 43, 143, 1)' }} component="div">
-                            4
+                          >
+                            Join us on a journey to discover the fascinating world of emotions like never before.
+                            Our website brings emotions to life, offering insights, entertainment,
+                            and valuable applications that can transform the way we interact with technology and each other.
                           </Typography>
                         </CardContent>
                       </StyledCard>
                     </Grid>
-                    
+
                   </Grid>
                 </Grid>
               </Grid>

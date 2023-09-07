@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import RadarGraph from "../common/radarGraph";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import router from "next/router";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 
 const emotionToColor: { [key: string]: string } = {
@@ -33,6 +35,7 @@ interface FacecamProps {
 }
 
 export default function Facecam(props: FacecamProps) {
+    const [hovered, setHovered] = useState(false);
     const appContext = React.useContext(AppContext);
     const { state, dispatch } = appContext;
     const { predictions } = state;
@@ -74,6 +77,14 @@ export default function Facecam(props: FacecamProps) {
         setShowMoreDetails(!showMoreDetails);
     };
 
+    const handleReport = async () => {
+        try {
+            await router.push('/result');
+        } catch (error) {
+            console.error("Error navigating to result page:", error);
+        }
+    };
+
     return (
         <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }} >
             <Grid item xs={8}>
@@ -111,12 +122,58 @@ export default function Facecam(props: FacecamProps) {
                 <Grid container direction="row" justifyContent={'center'}>
                     <Grid item xs={12}>
                         <Value />
-                        
                     </Grid>
 
                 </Grid>
             </Grid>
-            </Grid>
+            <Grid item xs={4}>
+                    <Button
+                        variant="contained"
+                        onClick={handleReport}
+                        sx={{
+                            margin: '-100px',
+                            padding: '30px',
+                            color: '#86b6c6',
+                            width: '90%',
+                            height: '100%',
+                            backgroundColor: 'black',
+                            transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
+                            borderRadius: '8px',
+                            transform: 'scale(1)',
+                            '&:hover': {
+                                backgroundColor: '#86b6c6',
+                                color: 'black',
+                                transform: 'scale(1.05)',
+                            },
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                            <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                                <AssessmentIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
+                            </div>
+                            <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
+                                <Typography
+                                    variant="h1"
+                                    component="div"
+                                    align="left"
+                                    style={{
+                                        fontWeight: 'bold',
+                                        fontFamily: 'sans-serif',
+                                    }}
+                                >
+                                    View Report
+                                </Typography>
+                            </div>
+                        </div>
+                    </Button>
+                </Grid>
+                <Grid item xs={4}>
+                    </Grid>
+
+        </Grid>
 
 
 
