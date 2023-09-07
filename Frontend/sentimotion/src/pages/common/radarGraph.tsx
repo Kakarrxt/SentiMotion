@@ -1,25 +1,25 @@
 import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardProps,
-  Grid,
-  Typography,
-  styled,
+    Card,
+    CardContent,
+    CardHeader,
+    CardProps,
+    Grid,
+    Typography,
+    styled,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Radar } from "react-chartjs-2";
 import {
-  Chart,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  LinearScale,
-  RadialLinearScale,
-  PointElement,
-  LineElement,
+    Chart,
+    ArcElement,
+    Title,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
 } from "chart.js";
 
 // Register the components and the RadialLinearScale
