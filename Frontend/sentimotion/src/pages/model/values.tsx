@@ -2,12 +2,9 @@ import { Prediction } from "@/utils/types";
 import { Card, CardContent, CardHeader, CardProps, Grid, Typography, styled } from "@mui/material";
 import dynamic from "next/dynamic";
 import { Fragment, useEffect, useState } from "react";
-import ThreeDModel from "../common/3dmodel";
 import AppContext from "@/app/providers/AppContext";
 import React from "react";
 import RadarGraph from "../common/radarGraph";
-
-const GaugeChart = dynamic(() => import('react-gauge-chart'), { ssr: false });
 
 function fetchData(url: RequestInfo | URL) {
     return fetch(url).then(response => response.json());
