@@ -34,6 +34,8 @@ face_cascade = cv2.CascadeClassifier(haar_file)
 prediction_results = []
 values=[]
 
+predictions_all=[]
+
 def extract_features(image):
     feature = image.reshape(1, 48, 48, 1)
     return feature
@@ -51,6 +53,7 @@ def generate_frames():
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
         prediction_results.clear()
+        predictions_all.clear()
         for (x, y, w, h) in faces:
             face_image = gray[y:y+h, x:x+w]
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
@@ -61,7 +64,7 @@ def generate_frames():
             pred = model.predict(img)
             prediction_label = labels[pred.argmax()]
             prediction_percentage = np.max(pred)*10 
-            
+            predictions_all.append(pred.tolist())
             # Store prediction for smoothing
             prediction_results.append(prediction_percentage)
             smoothed_pred = np.mean(prediction_results)
@@ -186,8 +189,28 @@ def value():
         error_message = f"An error occurred: {str(e)}"
         return jsonify({"error": error_message}), 500
     
+@app.route('/pred', methods=['GET'])
+def pred():
+    try:
+        if predictions_all is not None:
+            # Convert the ndarray to a Python list
+            predictions_list = predictions_all[0]
+            predictions_list=predictions_list[0]
 
-    
+            return jsonify({
+                "angry": predictions_list[0],
+                "disgust": predictions_list[1],
+                "fear": predictions_list[2],
+                "happy": predictions_list[3],
+                "neutral": predictions_list[4],
+                "sad": predictions_list[5],
+                "surprise": predictions_list[6]
+            })
+        else:
+            return jsonify({"error": "No predictions available"}), 404
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return jsonify({"error": error_message}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

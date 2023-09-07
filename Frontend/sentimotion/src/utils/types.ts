@@ -53,3 +53,5 @@ export interface Prediction {
   label: string;
   percentage: number;
 }
+
+

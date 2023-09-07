@@ -1,9 +1,11 @@
-import { Card, CardContent, CardHeader, CardProps, Grid, Typography, styled } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardHeader, CardProps, Grid, Typography, styled } from "@mui/material";
 
 import Value from "./values";
 import AppContext from "@/app/providers/AppContext";
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import RadarGraph from "../common/radarGraph";
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 const emotionToColor: { [key: string]: string } = {
@@ -27,16 +29,15 @@ const labelToEmoji: { [key: string]: string } = {
 };
 
 interface FacecamProps {
-    showCamera: boolean;
-  }
+    open: boolean;
+}
 
-export default function Facecam( props: FacecamProps ) {
+export default function Facecam(props: FacecamProps) {
     const appContext = React.useContext(AppContext);
     const { state, dispatch } = appContext;
-    const { predictions} = state;
-    const { showCamera } = props;
-
-
+    const { predictions } = state;
+    const { open } = props;
+    const [showMoreDetails, setShowMoreDetails] = useState(false);
     const defaultBackgroundColor = 'white';
 
     const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
@@ -53,6 +54,25 @@ export default function Facecam( props: FacecamProps ) {
             justifyContent: 'center',
         },
     }));
+
+    const StyledCardNoBackground = styled(Card)<CardProps>(({ theme }) => ({
+        margin: theme.spacing(1),
+        background: 'fff',
+        '& .MuiCardContent-root': {
+            paddingBottom: 0,
+            marginBottom: "15px",
+            paddingTop: 0,
+            marginTop: theme.spacing(1),
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+    }));
+
+    const handleMore = () => {
+        setShowMoreDetails(!showMoreDetails);
+    };
 
     return (
         <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }} >
@@ -81,18 +101,23 @@ export default function Facecam( props: FacecamProps ) {
                         }
                     />
                     <CardContent>
-                        <img src="http://localhost:5000/predict" alt="Video Stream" />
+                        {open && (
+                            <img src="http://localhost:5000/predict" alt="Video Stream" />
+                        )}
                     </CardContent>
                 </StyledCard>
             </Grid>
             <Grid item xs={4}>
                 <Grid container direction="row" justifyContent={'center'}>
                     <Grid item xs={12}>
+                        <Value />
+                        
                     </Grid>
-                    <Value />
+
                 </Grid>
             </Grid>
-        </Grid>
+            </Grid>
+
 
 
     )
