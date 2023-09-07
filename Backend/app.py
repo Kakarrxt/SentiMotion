@@ -1,3 +1,4 @@
+import datetime
 import cv2
 from flask import Flask, request, jsonify, send_file,Response
 import numpy as np
@@ -33,8 +34,8 @@ face_cascade = cv2.CascadeClassifier(haar_file)
 
 prediction_results = []
 values=[]
-
 predictions_all=[]
+prediction_records = []
 
 def extract_features(image):
     feature = image.reshape(1, 48, 48, 1)
@@ -76,6 +77,16 @@ def generate_frames():
             font_color = (153, 51, 255) 
             font_thickness = 2
 
+             # Get the current timestamp
+            timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            
+            # Store prediction and timestamp in the prediction_records list
+            prediction_records.append({
+                'timestamp': timestamp,
+                'label': prediction_label,
+                'percentage': smoothed_pred
+            })
+
             # Calculate text size to position it properly
             text_size = cv2.getTextSize(text, font, font_scale, font_thickness)[0]
             text_width, text_height = text_size
@@ -91,17 +102,7 @@ def generate_frames():
         frame_data = buffer.tobytes()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_data + b'\r\n')
-
-
-@app.route('/predict', methods=['GET'])
-def test():
-    try:
-          return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-    except Exception as e:
-        error_message = f"An error occurred: {str(e)}"
-        return jsonify({"error": error_message}), 500
-    
-
+        
 
 
 
@@ -166,6 +167,29 @@ def generate_screen():
         except Exception as e:
             print("An error occurred:", str(e))
 
+
+
+@app.route('/predict', methods=['GET'])
+def test():
+    try:
+          prediction_records.clear()
+          return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return jsonify({"error": error_message}), 500
+    
+
+
+
+
+@app.route('/records', methods=['GET'])
+def records():
+    try:
+        return jsonify(prediction_records)
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        return jsonify({"error": error_message}), 500
+    
  
 
 @app.route('/screen', methods=['GET'])

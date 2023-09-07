@@ -52,65 +52,65 @@ export default function Value() {
                 setPrediction(predictionList);
                 if (predictionList !== undefined) {
                     dispatch({ type: "setPredictions", value: predictionList });
-                  }
-        
+                }
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }, 750);
-       
+
         return () => clearInterval(interval);
     }, []);
 
 
-      
+
     return (
         <>
-         
-        <Grid item xs={12}>
-            <StyledCard>
-                <CardHeader
-                    title={<Typography
-                        gutterBottom
-                        variant="h1"
-                        component="div"
-                        align="center"
-                        style={{
-                            fontWeight: 'bold',
-                            fontFamily: 'sans-serif',
-                            fontSize: '50px',
-                        }}
-                    >
-                        Predictions
-                    </Typography>}
-                    subheader={prediction ? (
-                        <Fragment>
-                            <Typography
-                                variant='h6'
-                                align='center'
-                                color={'#5A5A5A'}
-                                style={{
-                                    fontSize: '20px',
-                                    fontFamily: 'monospace',
-                                }}>
-                                Prediction: {labelToEmoji[prediction.label] || prediction.label} {prediction.label}
-                            </Typography>
-                            <Typography
-                                variant='h6'
-                                align='center'
-                                color={'#5A5A5A'}
-                                style={{
-                                    fontSize: '20px',
-                                    fontFamily: 'monospace',
-                                }}>
-                                Confidence: {prediction.percentage.toFixed(2)}%
-                            </Typography>
-                        </Fragment>
-                    ) : null} />
-            </StyledCard>
-        </Grid>
+
             <Grid item xs={12}>
-                
+                <StyledCard>
+                    <CardHeader
+                        title={<Typography
+                            gutterBottom
+                            variant="h1"
+                            component="div"
+                            align="center"
+                            style={{
+                                fontWeight: 'bold',
+                                fontFamily: 'sans-serif',
+                                fontSize: '50px',
+                            }}
+                        >
+                            Predictions
+                        </Typography>}
+                        subheader={prediction ? (
+                            <Fragment>
+                                <Typography
+                                    variant='h6'
+                                    align='center'
+                                    color={'#5A5A5A'}
+                                    style={{
+                                        fontSize: '20px',
+                                        fontFamily: 'monospace',
+                                    }}>
+                                    Prediction: {labelToEmoji[prediction.label] || prediction.label} {prediction.label}
+                                </Typography>
+                                <Typography
+                                    variant='h6'
+                                    align='center'
+                                    color={'#5A5A5A'}
+                                    style={{
+                                        fontSize: '20px',
+                                        fontFamily: 'monospace',
+                                    }}>
+                                    Confidence: {prediction.percentage.toFixed(2)}%
+                                </Typography>
+                            </Fragment>
+                        ) : null} />
+                </StyledCard>
+            </Grid>
+            <Grid item xs={12}>
+
                 <RadarGraph />
 
             </Grid>

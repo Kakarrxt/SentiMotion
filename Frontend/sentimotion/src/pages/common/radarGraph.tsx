@@ -20,6 +20,8 @@ import {
     RadialLinearScale,
     PointElement,
     LineElement,
+    ChartType,
+    ChartOptions
 } from "chart.js";
 
 // Register the components and the RadialLinearScale
@@ -129,21 +131,23 @@ export default function RadarGraph() {
   const chartOptions = {
     plugins: {
       legend: {
-        display: false,
+        display: false, 
       },
     },
     scales: {
       r: {
+        type: "radialLinear",
+        beginAtZero: true, 
         ticks: {
-          beginAtZero: true,
+          display: true, 
+          beginAtZero: true, 
         },
       },
     },
-  };
+  } as ChartOptions<'radar'>;
 
   function maxLabel(maxValue: number) {
     if (data) {
-      // Create an object to map values to labels
       const valueToLabel = {
         [data.angry * 10]: "angry",
         [data.disgust * 10]: "disgust",
@@ -160,13 +164,7 @@ export default function RadarGraph() {
   }
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center', // Horizontally center
-      alignItems: 'center', // Vertically center
-      maxWidth: '75%',
-      maxHeight: '70%',
-    }}>
+    <div >
       <StyledCard>
         <CardHeader
           title={
