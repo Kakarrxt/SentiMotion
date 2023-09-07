@@ -5,6 +5,7 @@ import { motion, useAnimationFrame, useMotionValue, useScroll, useSpring, useTra
 import DoughnutGraph from "../common/dounutGraph";
 import "./styles.css";
 import VideoRecommendations from "./card";
+import EmotionOverTimeLineChart from "../common/lineChart";
 
 interface HappyProps {
     labelCounts: { [key: string]: number };
@@ -65,7 +66,10 @@ export default function Happy(props: HappyProps) {
                 </StyledCard>
             </Grid>
             <Grid item xs={4}>
-                {/* <EmotionOverTimeLineChart data={filteredData} /> */}
+                <EmotionOverTimeLineChart data={filteredData} />
+            </Grid>
+            <Grid item xs={4}>
+                
             </Grid>
             <Grid item xs={10}>
                 <Grid container direction="row" justifyContent={'center'} spacing={2}>

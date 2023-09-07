@@ -1,6 +1,6 @@
 import datetime
 import cv2
-from flask import Flask, request, jsonify, send_file,Response,redirect, url_for
+from flask import Flask, request, jsonify, send_file,Response
 import numpy as np
 import cv2
 from keras.models import model_from_json
@@ -9,11 +9,7 @@ from mss import mss
 from PIL import Image
 import pyautogui
 from win32api import GetSystemMetrics
-from werkzeug.serving import make_server
 
-
-webcam_active=False
-cap=None
 
 # Get the screen size
 width=GetSystemMetrics(0)
@@ -45,24 +41,16 @@ def extract_features(image):
     feature = image.reshape(1, 48, 48, 1)
     return feature
 
-def startcam():
-    global cap,webcam_active
-    if not webcam_active:
-        cap=cv2.VideoCapture(0)
-        webcam_active=True
 
 def generate_frames():
-    startcam()
-    global cap,webcam_active
-    
-    webcam = cap
+    webcam = cv2.VideoCapture(0)
     labels = {0: 'angry', 1: 'disgust', 2: 'fear', 3: 'happy', 4: 'neutral', 5: 'sad', 6: 'surprise'}
     while True:
         ret, frame = webcam.read()
         if not ret:
             print("Error reading webcam frame")
             break
-            
+        
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
         prediction_results.clear()
@@ -73,7 +61,7 @@ def generate_frames():
             resized_face = cv2.resize(face_image, (48, 48))
             normalized_face = resized_face 
             img = extract_features(normalized_face)
-                # Predict emotion and apply thresholding
+            # Predict emotion and apply thresholding
             pred = model.predict(img)
             prediction_label = labels[pred.argmax()]
             prediction_percentage = np.max(pred)*10 
@@ -83,7 +71,7 @@ def generate_frames():
             smoothed_pred = np.mean(prediction_results)
             values.append((prediction_label, smoothed_pred))
             text = f"{prediction_label}: {smoothed_pred:.2f}%"
-                # Define text style
+            # Define text style
             font = cv2.FONT_HERSHEY_SIMPLEX
             font_scale = 0.7
             font_color = (153, 51, 255) 
@@ -103,13 +91,13 @@ def generate_frames():
             text_size = cv2.getTextSize(text, font, font_scale, font_thickness)[0]
             text_width, text_height = text_size
 
-                # Calculate text position above the bounding box
+            # Calculate text position above the bounding box
             text_x = x + (w - text_width) // 2
             text_y = y - 15  # Slightly above the top of the bounding box
 
-                # Overlay text on the frame
+            # Overlay text on the frame
             cv2.putText(frame, text, (text_x, text_y), font, font_scale, font_color, font_thickness)
-            
+        
         _, buffer = cv2.imencode('.jpg', frame)  
         frame_data = buffer.tobytes()
         yield (b'--frame\r\n'
@@ -197,7 +185,6 @@ def test():
 @app.route('/records', methods=['GET'])
 def records():
     try:
-        stop_webcam()
         return jsonify(prediction_records)
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
@@ -225,24 +212,6 @@ def value():
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
         return jsonify({"error": error_message}), 500
-
-def stop_webcam():
-    global cap, webcam_active
-    if webcam_active:
-        cap.release()
-        cv2.destroyAllWindows()
-        webcam_active = False
-
-
-@app.route('/stopcam', methods=['GET'])
-def stop_webcam():
-    global cap, webcam_active
-    if webcam_active:
-        cap.release()
-        cv2.destroyAllWindows()
-        webcam_active = False
-    return redirect(url_for('screen'))
-
     
 @app.route('/pred', methods=['GET'])
 def pred():
@@ -269,5 +238,3 @@ def pred():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
-    

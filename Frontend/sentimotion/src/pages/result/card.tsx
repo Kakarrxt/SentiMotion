@@ -84,7 +84,7 @@ function VideoRecommendations(porps: VideoProps) {
             },
             {
                 url: " https://www.youtube.com/watch?v=UfWggAiIFT8 ",
-                image: "https://img.youtube.com/vi/ UfWggAiIFT8/hqdefault.jpg",
+                image: "https://img.youtube.com/vi/UfWggAiIFT8/hqdefault.jpg",
                 title: "Baby Monkey (all time greatest fails)",
             },
             {
@@ -389,7 +389,6 @@ function VideoRecommendations(porps: VideoProps) {
     const [randomCards, setRandomCards] = useState<VideoData[]>([]);
 
     useEffect(() => {
-        // Get 4 random cards when the component mounts
         const randomCards = getRandomCards(videoData, 4);
         setRandomCards(randomCards);
     }, []);

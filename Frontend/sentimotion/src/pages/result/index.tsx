@@ -41,9 +41,13 @@ export default function Records(props: ReportProps) {
     
     const filteredData = filteredReport.map((item) => ({
         label: item.label,
-        timestamp: new Date(item.timestamp).toLocaleTimeString([], { minute: '2-digit', second: '2-digit' }),
+        timestamp: new Date(item.timestamp).toLocaleTimeString('en-US', {
+          hour12: false, 
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }),
       }));
-      
     
     
       console.log(filteredData);
