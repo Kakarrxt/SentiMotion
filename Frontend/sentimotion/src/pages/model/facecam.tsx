@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardProps, Grid, Typography, styled } from "@mui/material";
-
+import axios from 'axios';
 import Value from "./values";
 import AppContext from "@/app/providers/AppContext";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 
 
@@ -35,9 +35,40 @@ export default function Facecam( props: FacecamProps ) {
     const { state, dispatch } = appContext;
     const { predictions} = state;
     const { showCamera } = props;
-
+    const [abortController, setAbortController] = useState(new AbortController());
+    const [videoStream, setVideoStream] = useState('');
 
     const defaultBackgroundColor = 'white';
+  
+    const startWebcam = () => {
+      fetch('http://localhost:5000/predict')
+        .then((response) => {
+          if (response.ok) {
+            console.log('Webcam started');
+          } else {
+            console.error('Failed to start webcam');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    };
+    
+    const stopWebcam = () => {
+      fetch('http://localhost:5000/stopcam')
+        .then((response) => {
+          if (response.ok) {
+            console.log('Webcam stopped');
+          } else {
+            console.error('Failed to stop webcam');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    };
+    
+
 
     const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
         margin: theme.spacing(1),
@@ -53,6 +84,11 @@ export default function Facecam( props: FacecamProps ) {
             justifyContent: 'center',
         },
     }));
+
+
+
+
+
 
     return (
         <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }} >
@@ -81,13 +117,17 @@ export default function Facecam( props: FacecamProps ) {
                         }
                     />
                     <CardContent>
-                        <img src="http://localhost:5000/predict" alt="Video Stream" />
+                       <img
+                       src="http://localhost:5000/predict"
+                       alt="Video Stream"/>
                     </CardContent>
                 </StyledCard>
             </Grid>
             <Grid item xs={4}>
                 <Grid container direction="row" justifyContent={'center'}>
                     <Grid item xs={12}>
+                      {/* <button onClick={startWebcam}>Start</button>
+                      <button onClick={stopWebcam}>Stop</button> */}
                     </Grid>
                     <Value />
                 </Grid>
@@ -97,3 +137,4 @@ export default function Facecam( props: FacecamProps ) {
 
     )
 }
+

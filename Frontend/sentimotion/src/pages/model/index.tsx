@@ -29,6 +29,37 @@ const Model = () => {
   const [hovered, setHovered] = useState(false);
 
 
+  const stopWebAndShowFace = () => {
+    fetch('http://localhost:5000/stopcam')
+      .then((response) => {
+        if (response.ok) {
+          console.log('Webcam stopped');
+          setShowFacecam(false); // Update state to show the Facecam component
+          setShowScreen(true);
+        } else {
+          console.error('Failed to stop webcam');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+  
+  const startWebAndShowFace = () => {
+    fetch('http://localhost:5000/predict')
+      .then((response) => {
+        if (response.ok) {
+          console.log('Webcam Started');
+          setShowFacecam(true); // Update state to show the Facecam component
+          setShowScreen(false);
+        } else {
+          console.error('Failed to start webcam');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
 
   const showFacecamComponent = () => {
     setShowFacecam(true);
@@ -158,7 +189,7 @@ const Model = () => {
             <ThreeDModel />
             <Button
               variant="contained"
-              onClick={showScreenComponent}
+              onClick={stopWebAndShowFace}
               sx={{
                 padding: '30px',
                 color: 'white',
@@ -204,7 +235,7 @@ const Model = () => {
             <ThreeDModel />
             <Button
               variant="contained"
-              onClick={showFacecamComponent}
+              onClick={startWebAndShowFace}
               sx={{
                 padding: '30px',
                 color: 'white',
