@@ -1,9 +1,13 @@
-import { Card, CardContent, CardHeader, CardProps, Grid, Typography, styled } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardHeader, CardProps, Grid, Typography, styled } from "@mui/material";
 
 import Value from "./values";
 import AppContext from "@/app/providers/AppContext";
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import RadarGraph from "../common/radarGraph";
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import router from "next/router";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 
 const emotionToColor: { [key: string]: string } = {
@@ -34,40 +38,11 @@ export default function Facecam(props: FacecamProps) {
     const [hovered, setHovered] = useState(false);
     const appContext = React.useContext(AppContext);
     const { state, dispatch } = appContext;
-    const { predictions} = state;
-    const { showCamera } = props;
-
-
+    const { predictions } = state;
+    const { open } = props;
+    const [showMoreDetails, setShowMoreDetails] = useState(false);
     const defaultBackgroundColor = 'white';
-  
-    const startWebcam = () => {
-      fetch('http://localhost:5000/predict')
-        .then((response) => {
-          if (response.ok) {
-            console.log('Webcam started');
-          } else {
-            console.error('Failed to start webcam');
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    };
-    
-    const stopWebcam = () => {
-      fetch('http://localhost:5000/stopcam')
-        .then((response) => {
-          if (response.ok) {
-            console.log('Webcam stopped');
-          } else {
-            console.error('Failed to stop webcam');
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    };
-    
+
 
 
     const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
@@ -84,6 +59,35 @@ export default function Facecam(props: FacecamProps) {
             justifyContent: 'center',
         },
     }));
+
+    const StyledCardNoBackground = styled(Card)<CardProps>(({ theme }) => ({
+        margin: theme.spacing(1),
+        background: 'fff',
+        '& .MuiCardContent-root': {
+            paddingBottom: 0,
+            marginBottom: "15px",
+            paddingTop: 0,
+            marginTop: theme.spacing(1),
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+    }));
+
+
+
+    const handleMore = () => {
+        setShowMoreDetails(!showMoreDetails);
+    };
+
+    const handleReport = async () => {
+        try {
+            await router.push('/result');
+        } catch (error) {
+            console.error("Error navigating to result page:", error);
+        }
+    };
 
     return (
         <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }} >
@@ -119,56 +123,57 @@ export default function Facecam(props: FacecamProps) {
             <Grid item xs={4}>
                 <Grid container direction="row" justifyContent={'center'}>
                     <Grid item xs={12}>
+                        <Value />
                     </Grid>
 
                 </Grid>
             </Grid>
             <Grid item xs={4}>
-                    <Button
-                        variant="contained"
-                        onClick={handleReport}
-                        sx={{
-                            margin: '-100px',
-                            padding: '30px',
-                            color: '#86b6c6',
-                            width: '90%',
-                            height: '100%',
-                            backgroundColor: 'black',
-                            transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
-                            borderRadius: '8px',
-                            transform: 'scale(1)',
-                            '&:hover': {
-                                backgroundColor: '#86b6c6',
-                                color: 'black',
-                                transform: 'scale(1.05)',
-                            },
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
-                        }}
-                    >
-                        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                            <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
-                                <AssessmentIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
-                            </div>
-                            <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
-                                <Typography
-                                    variant="h1"
-                                    component="div"
-                                    align="left"
-                                    style={{
-                                        fontWeight: 'bold',
-                                        fontFamily: 'sans-serif',
-                                    }}
-                                >
-                                    View Report
-                                </Typography>
-                            </div>
+                <Button
+                    variant="contained"
+                    onClick={handleReport}
+                    sx={{
+                        margin: '-100px',
+                        padding: '30px',
+                        color: '#86b6c6',
+                        width: '90%',
+                        height: '100%',
+                        backgroundColor: 'black',
+                        transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
+                        borderRadius: '8px',
+                        transform: 'scale(1)',
+                        '&:hover': {
+                            backgroundColor: '#86b6c6',
+                            color: 'black',
+                            transform: 'scale(1.05)',
+                        },
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                        <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                            <AssessmentIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
                         </div>
-                    </Button>
-                </Grid>
-                <Grid item xs={4}>
-                    </Grid>
+                        <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
+                            <Typography
+                                variant="h1"
+                                component="div"
+                                align="left"
+                                style={{
+                                    fontWeight: 'bold',
+                                    fontFamily: 'sans-serif',
+                                }}
+                            >
+                                View Report
+                            </Typography>
+                        </div>
+                    </div>
+                </Button>
+            </Grid>
+            <Grid item xs={4}>
+            </Grid>
 
         </Grid>
 
@@ -176,4 +181,3 @@ export default function Facecam(props: FacecamProps) {
 
     )
 }
-

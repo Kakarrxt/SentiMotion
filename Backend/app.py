@@ -26,11 +26,11 @@ app = Flask(__name__)
 CORS(app)
 
 # Load the pre-trained emotion detection model
-json_file = open("./Backend/emotiondetector3.json", "r")
+json_file = open("./Backend/emotiondetector2.json", "r")
 model_json = json_file.read()
 json_file.close()
 model = model_from_json(model_json)
-model.load_weights("./Backend/emotiondetector3.h5")
+model.load_weights("./Backend/emotiondetector2.h5")
 
 # Load Haarcascade classifier XML file
 haar_file = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
@@ -42,7 +42,7 @@ predictions_all=[]
 prediction_records = []
 
 def extract_features(image):
-    feature = image.reshape(1, 48, 48, 3)
+    feature = image.reshape(1, 48, 48, 1)
     return feature
 
 def startcam():
@@ -197,6 +197,7 @@ def test():
 @app.route('/records', methods=['GET'])
 def records():
     try:
+        stop_webcam()
         return jsonify(prediction_records)
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
@@ -224,6 +225,13 @@ def value():
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"
         return jsonify({"error": error_message}), 500
+
+def stop_webcam():
+    global cap, webcam_active
+    if webcam_active:
+        cap.release()
+        cv2.destroyAllWindows()
+        webcam_active = False
 
 
 @app.route('/stopcam', methods=['GET'])

@@ -30,12 +30,13 @@ const Model = () => {
 
 
   const stopWebAndShowFace = () => {
+    setShowFacecam(false); // Update state to show the Facecam component
+    setShowScreen(true);
     fetch('http://localhost:5000/stopcam')
       .then((response) => {
         if (response.ok) {
           console.log('Webcam stopped');
-          setShowFacecam(false); // Update state to show the Facecam component
-          setShowScreen(true);
+
         } else {
           console.error('Failed to stop webcam');
         }
@@ -44,14 +45,15 @@ const Model = () => {
         console.error('Error:', error);
       });
   };
-  
+
   const startWebAndShowFace = () => {
+    setShowFacecam(true); // Update state to show the Facecam component
+    setShowScreen(false);
     fetch('http://localhost:5000/predict')
       .then((response) => {
         if (response.ok) {
           console.log('Webcam Started');
-          setShowFacecam(true); // Update state to show the Facecam component
-          setShowScreen(false);
+
         } else {
           console.error('Failed to start webcam');
         }
