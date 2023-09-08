@@ -65,7 +65,7 @@ const Model = () => {
                 display: 'flex',
               }}
             >
-              Models
+              Features
             </Typography>
           </div>)}
       </StyledGrid>
