@@ -122,6 +122,7 @@ def generate_screen():
             gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
             faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
             prediction_results.clear()
+            predictions_all.clear()
             for (x, y, w, h) in faces:
                 face_image = gray[y:y + h, x:x + w]
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
@@ -133,6 +134,7 @@ def generate_screen():
                 pred = model.predict(img)
                 prediction_label = labels[pred.argmax()]
                 prediction_percentage = np.max(pred) * 10
+                predictions_all.append(pred.tolist())
 
                 # Store prediction for smoothing
                 prediction_results.append(prediction_percentage)
@@ -145,6 +147,16 @@ def generate_screen():
                 font_scale = 0.7
                 font_color = (153, 51, 255)
                 font_thickness = 2
+
+                 # Get the current timestamp
+                timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                
+                # Store prediction and timestamp in the prediction_records list
+                prediction_records.append({
+                    'timestamp': timestamp,
+                    'label': prediction_label,
+                    'percentage': smoothed_pred
+                })
 
                 # Calculate text size to position it properly
                 text_size = cv2.getTextSize(text, font, font_scale, font_thickness)[0]
@@ -166,6 +178,8 @@ def generate_screen():
                 b'Content-Type: image/jpeg\r\n\r\n' + frame_data + b'\r\n')
         except Exception as e:
             print("An error occurred:", str(e))
+
+
 
 
 
@@ -195,6 +209,7 @@ def records():
 @app.route('/screen', methods=['GET'])
 def screen():
     try:
+        prediction_records.clear()
         return Response(generate_screen(), mimetype='multipart/x-mixed-replace; boundary=frame')
     except Exception as e:
         error_message = f"An error occurred: {str(e)}"

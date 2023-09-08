@@ -3,6 +3,9 @@ import { Button, Card, CardContent, CardHeader, CardProps, Grid, Typography, Zoo
 import { Fragment, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Value from "./values";
+import router from "next/router";
+import AssessmentIcon from '@mui/icons-material/Assessment';
+
 
 
 function fetchData(url: RequestInfo | URL) {
@@ -30,7 +33,13 @@ export default function Screen() {
         },
     }));
 
-  
+    const handleReport = async () => {
+        try {
+            await router.push('/result');
+        } catch (error) {
+            console.error("Error navigating to result page:", error);
+        }
+    };
 
     return (
         <Grid container direction="row" justifyContent={'center'} style={{ paddingTop: '64px' }}>
@@ -108,6 +117,52 @@ export default function Screen() {
                         <Value />
                     </Grid>
                 </Grid>
+                <Grid item xs={4}>
+                <Button
+                    variant="contained"
+                    onClick={handleReport}
+                    sx={{
+                        margin: '10px',
+                        padding: '30px',
+                        color: '#86b6c6',
+                        width: '150%',
+                        height: '100%',
+                        backgroundColor: 'black',
+                        transition: 'background-color 0.3s, color 0.3s , transform 0.3s',
+                        borderRadius: '8px',
+                        transform: 'scale(1)',
+                        '&:hover': {
+                            backgroundColor: '#86b6c6',
+                            color: 'black',
+                            transform: 'scale(1.05)',
+                        },
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                        <div style={{ flex: '1', display: 'flex', alignItems: 'center' }}>
+                            <AssessmentIcon style={{ fontSize: '40px', opacity: hovered ? 0.8 : 1 }} />
+                        </div>
+                        <div style={{ flex: '4', display: 'flex', flexDirection: 'column' }}>
+                            <Typography
+                                variant="h1"
+                                component="div"
+                                align="left"
+                                style={{
+                                    fontWeight: 'bold',
+                                    fontFamily: 'sans-serif',
+                                }}
+                            >
+                                View Report
+                            </Typography>
+                        </div>
+                    </div>
+                </Button>
+            </Grid>
+            <Grid item xs={4}>
+            </Grid>
             </Grid>
         </Grid>
 

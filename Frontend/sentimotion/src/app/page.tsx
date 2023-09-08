@@ -248,9 +248,7 @@ export default function Home() {
                             }}
 
                           >
-                            Our innovative website combines webcam and voice inputs to revolutionize emotion detection.
-                             It offers an immersive user experience by seamlessly integrating technology and psychology. 
-                             Our platform can accurately analyze emotions in real-time, opening up numerous applications.
+                           Innovative website that uses webcam to capture video to detect emotions.
                           </Typography>
                         </CardContent>
                       </StyledCard>
@@ -279,8 +277,7 @@ export default function Home() {
                             }}
 
                           >
-                           Our website excels in Visual Emotion Detection through your webcam, capturing facial expressions with precision.
-                            It also goes beyond by analyzing voice cues, including tone, pitch, and inflections, for accurate emotional state assessment.
+                          Detects faces with precision and provides output with different types of visual representation.
                           </Typography>
                         </CardContent>
                       </StyledCard>
@@ -310,9 +307,7 @@ export default function Home() {
                             }}
 
                           >
-                            Join us on a journey to discover the fascinating world of emotions like never before.
-                            Our website brings emotions to life, offering insights, entertainment,
-                            and valuable applications that can transform the way we interact with technology and each other.
+                           A minimalist web design which also allows the user to capture their screen.
                           </Typography>
                         </CardContent>
                       </StyledCard>

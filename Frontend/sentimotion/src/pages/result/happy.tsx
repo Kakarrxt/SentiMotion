@@ -6,6 +6,7 @@ import DoughnutGraph from "../common/dounutGraph";
 import "./styles.css";
 import VideoRecommendations from "./card";
 import EmotionOverTimeLineChart from "../common/lineChart";
+import Suggestion from "./suggestion";
 
 interface HappyProps {
     labelCounts: { [key: string]: number };
@@ -68,9 +69,10 @@ export default function Happy(props: HappyProps) {
             <Grid item xs={4}>
                 <EmotionOverTimeLineChart data={filteredData} />
             </Grid>
-            <Grid item xs={4}>
-                
+            <Grid item xs={4} style={{paddingLeft:"10px"}}>
+                <Suggestion emotion={props.emotion} />
             </Grid>
+
             <Grid item xs={10}>
                 <Grid container direction="row" justifyContent={'center'} spacing={2}>
                     <Grid item xs={10}>
